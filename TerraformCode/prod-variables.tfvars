@@ -31,7 +31,7 @@ subnets_details=[
 variable ec2_details {
 
 {
-    type="ami-04e5276ebb8451442",
+    type="ami-04b70fa74e45c3917",
     ami="t2.micro",
     key_name="tf-key-pair",
 }

@@ -32,7 +32,7 @@ subnets_details=[
 
 ec2_details ={
 
-    ami="ami-04e5276ebb8451442",
+    ami="ami-04b70fa74e45c3917",
     type="t2.micro",
     key_name="tf-key-pair"
 
