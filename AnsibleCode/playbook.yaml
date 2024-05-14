@@ -16,7 +16,7 @@
 
 - hosts: jenkins-private-slave
   name: PrivateSlaveConfigurations
-  remote_user: ec2-user
+  remote_user: ubuntu
   become: yes
   roles:
     - configure-jenkins-private-slave

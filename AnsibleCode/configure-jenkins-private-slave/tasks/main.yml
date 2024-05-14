@@ -1,31 +1,29 @@
 ---
-- name: Update yum cache
-  yum:
-    name: '*'
-    state: latest
+- name: Update apt cache
+  apt:
     update_cache: yes
 
 - name: Install Java
-  yum:
-    name: java-11-openjdk-devel
+  apt:
+    name: openjdk-11-jdk
     state: present
 
-- name: Create ec2-user Slave Folder
+- name: Create ubuntu Slave Folder
   file:
     path: "jenkins_slave"
     state: directory
-    owner: ec2-user
-    group: ec2-user
+    owner: ubuntu
+    group: ubuntu
     mode: '0755'
 
 - name: Install Docker
-  yum:
-    name: docker
+  apt:
+    name: docker.io
     state: present
     update_cache: yes
 
-- name: Add ec2-user user to docker group
+- name: Add ubuntu user to docker group
   user:
-    name: ec2-user
+    name: ubuntu
     groups: docker
     append: yes

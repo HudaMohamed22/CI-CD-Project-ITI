@@ -7,9 +7,9 @@ ansible_host=54.91.247.139
 ansible_user=ubuntu
 
 [jenkins-private-slave]
-10.0.3.220
+10.0.3.139
 
 [jenkins-private-slave:vars]
-ansible_user=ec2-user
+ansible_user=ubuntu
 ansible_ssh_private_key_file=../TerraformCode/Key/terraformPrivateKey.pem
-ansible_ssh_common_args = "-o ProxyCommand=\"ssh -i ../TerraformCode/Key/terraformPrivateKey.pem ec2-user@44.202.135.242 -W %h:%p\""    
+ansible_ssh_common_args = "-o ProxyCommand=\"ssh -i ../TerraformCode/Key/terraformPrivateKey.pem ubuntu@34.239.254.105 -W %h:%p\""    
