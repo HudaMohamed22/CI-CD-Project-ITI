@@ -1,0 +1,19 @@
+---
+# - hosts: jenkins-master
+#   name: MasterNodeConfigurations
+#   remote_user: ubuntu
+#   become: yes
+#   roles:
+#     - configure-jenkins-master
+
+
+- hosts: jenkins-public-slave
+  name: MasterNodeConfigurations
+  remote_user: ubuntu
+  become: yes
+  roles:
+    - configure-jenkins-public-slave
+
+
+
+
