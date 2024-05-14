@@ -43,7 +43,7 @@ resource "aws_lb" "node_alb" {
   name               = "NodeJs-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.ssh_from_anywhere.id]
+  security_groups    = [aws_security_group.alb_sg.id]
   subnets            = [ module.network.M-subnets["public"].id,  module.network.M-subnets["public2"].id]
 
   tags = {

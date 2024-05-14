@@ -27,21 +27,33 @@ pipeline {
             }
         }
 
-        stage('Docker Run => Deploy the app') {
-            steps {
-                script {
-                    sh '''
-                        docker run -d -p 3000:3000 \
-                        -e RDS_HOSTNAME \
-                        -e RDS_USERNAME \
-                        -e RDS_PASSWORD \
-                        -e RDS_PORT \
-                        -e REDIS_HOSTNAME \
-                        -e REDIS_PORT \
-                        --name nodejsapp_container nodejsapp
-                    '''
+    stage('Docker Run => Deploy the app') {
+        steps {
+            script {
+                def containerName = 'nodejsapp_container'
+
+                // Check if the container already exists
+                def existingContainer = sh(script: "docker ps -aqf name=${containerName}", returnStdout: true).trim()
+                
+                if (existingContainer) {
+                    // Stop and remove the existing container
+                    sh "docker stop ${containerName}"
+                    sh "docker rm ${containerName}"
                 }
+
+                // Run the Docker container
+                sh '''
+                    docker run -d -p 3000:3000 \
+                    -e RDS_HOSTNAME \
+                    -e RDS_USERNAME \
+                    -e RDS_PASSWORD \
+                    -e RDS_PORT \
+                    -e REDIS_HOSTNAME \
+                    -e REDIS_PORT \
+                    --name nodejsapp_container nodejsapp
+                '''
             }
         }
     }
+   }
 }
