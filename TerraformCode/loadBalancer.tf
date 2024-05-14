@@ -63,3 +63,9 @@ resource "aws_lb_listener" "alb_listener" {
   }
 }
 
+# Attach instances to target group
+resource "aws_lb_target_group_attachment" "alb_target_group_attachment" {
+  target_group_arn  = aws_lb_target_group.alb_target_group.arn
+  target_id         = aws_instance.application.id
+  port              = 3000
+}
