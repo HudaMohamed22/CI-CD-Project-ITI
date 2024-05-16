@@ -5,8 +5,8 @@ from datetime import datetime
 
 def send_email(event, context):
 
-    SENDER_EMAIL = 'marlymohamed30@gmail.com'
-    RECIPIENT_EMAIL = 'marlymohamed30@gmail.com'
+    SENDER_EMAIL = 'test@gmail.com'
+    RECIPIENT_EMAIL = 'test@gmail.com'
     
     # Email subject and body
     SUBJECT = 'Terraform State File Change Detected'
