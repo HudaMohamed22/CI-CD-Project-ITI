@@ -11,20 +11,12 @@ steps:
 - script: echo Test => Hello, world!
   displayName: 'Test script'
 
-- task: AWSCLI@1
+
+- task: AWSShellScript@1
   inputs:
     awsCredentials: 'azure_user_SC'
     regionName: 'us-east-1'
-    awsCommand: ''
-    
-- script: |
-    echo "Configuring AWS credentials for Terraform"
-    export AWS_ACCESS_KEY_ID=$(aws configure get aws_access_key_id)
-    export AWS_SECRET_ACCESS_KEY=$(aws configure get aws_secret_access_key)
-    export AWS_DEFAULT_REGION=$(aws configure get region)
-  displayName: 'Configure AWS Credentials'
+    scriptType: 'inline'
+    inlineScript: 'ls '
 
-- script: |
-     echo $AWS_ACCESS_KEY_ID
-  displayName: 'Credientials Test '
 
