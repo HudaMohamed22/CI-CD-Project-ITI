@@ -1,9 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-
 trigger:
 - main
 
@@ -13,26 +7,24 @@ pr:
 pool:
   name: aws-self-hosted-agent
 
-
-variables:
-  terraformCodePath: './'  # Assuming your Terraform code is in the same directory
-
 steps:
-
 - script: echo Test => Hello, world!
   displayName: 'Test script'
 
-- script: |
-    sudo apt-get update && sudo apt-get install -y unzip
-
-- task: TerraformInstaller@1
+- task: AWSCLI@1
   inputs:
-    terraformVersion: 'latest'
-
-# Install Terraform
+    awsCredentials: 'azure_user_SC'
+    regionName: 'us-east-1'
+    awsCommand: ''
+    
 - script: |
-      # Change directory to your Terraform code path
-      cd $(Build.SourceDirectory)/$(variables.terraformCodePath)
-      ls
+    echo "Configuring AWS credentials for Terraform"
+    export AWS_ACCESS_KEY_ID=$(aws configure get aws_access_key_id)
+    export AWS_SECRET_ACCESS_KEY=$(aws configure get aws_secret_access_key)
+    export AWS_DEFAULT_REGION=$(aws configure get region)
+  displayName: 'Configure AWS Credentials'
 
+- script: |
+     echo $AWS_ACCESS_KEY_ID
+  displayName: 'Credientials Test '
 
