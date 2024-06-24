@@ -22,6 +22,9 @@ steps:
 - script: echo Test => Hello, world!
   displayName: 'Test script'
 
+- script: |
+    sudo apt-get update && sudo apt-get install -y unzip
+
 - task: TerraformInstaller@1
   inputs:
     terraformVersion: 'latest'
