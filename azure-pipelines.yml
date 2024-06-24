@@ -1,0 +1,35 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+trigger:
+- main
+
+pr:
+- main
+
+pool:
+  name: aws-self-hosted-agent
+
+
+variables:
+  terraformCodePath: './'  # Assuming your Terraform code is in the same directory
+
+steps:
+
+- script: echo Test => Hello, world!
+  displayName: 'Test script'
+
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: 'latest'
+
+# Install Terraform
+- script: |
+      # Change directory to your Terraform code path
+      cd $(Build.SourceDirectory)/$(variables.terraformCodePath)
+      ls
+
+
