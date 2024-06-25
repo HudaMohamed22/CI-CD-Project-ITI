@@ -41,19 +41,20 @@ steps:
     scriptType: 'inline'
     inlineScript: |
       cd TerraformCode
-      terraform init
+      terraform init  
 
       # Create or select Terraform workspace
-      if ! terraform workspace select $(parameters.workspace); then
-        terraform workspace new $(parameters.workspace)
+      if ! terraform workspace select ${{ parameters.workspace }}; then
+        terraform workspace new ${{ parameters.workspace }}
       fi
 
       # Run Terraform plan for pull requests
       if [ "$(Build.Reason)" = "PullRequest" ]; then
-        terraform plan -var-file=$(parameters.workspace)-variables.tfvars
+        terraform plan -var-file=${{ parameters.workspace }}-variables.tfvars
 
       elif [ "$(Build.Reason)" = "IndividualCI" ]; then
-        terraform plan -var-file=$(parameters.workspace)-variables.tfvars 
+        terraform plan -var-file=${{ parameters.workspace }}-variables.tfvars
+         
         #terraform apply -auto-approve -var-file=$(workspace)-variables.tfvars
 
       # Run Terraform apply or destroy for manual runs and IndividualCI
