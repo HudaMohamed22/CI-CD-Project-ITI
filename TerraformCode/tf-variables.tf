@@ -8,6 +8,7 @@ variable subnets_details {
     name=string,
     cidr=string,
     type=string
+    availability_zone = string,
 
   }))
 

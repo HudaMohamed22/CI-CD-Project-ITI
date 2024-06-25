@@ -7,7 +7,9 @@ variable subnets_details {
   type        = list(object({
     name=string,
     cidr=string,
-    type=string
+    type=string,
+    availability_zone = string,
+
 
   }))
 
