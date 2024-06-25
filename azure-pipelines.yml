@@ -10,20 +10,9 @@ pool:
   name: aws-self-hosted-agent
 
 steps:
-- script: echo Test => Hello, world!
+- script: |
+    echo Test => Hello, world!
+    cd $(Build.SourceDirectory)/TerraformCode
+    ls
   displayName: 'Test script'
 
-
-- task: AWSShellScript@1
-  inputs:
-    awsCredentials: 'azure_user_SC'
-    regionName: 'us-east-1'
-    scriptType: 'inline'
-    inlineScript: |
-      if [ "$(Build.Reason)" = "PullRequest" ]; then
-        terraform init
-        terraform plan
-      elif [ "$(Build.Reason)" = "IndividualCI" ]; then
-        terraform init
-      fi
-  displayName: 'Run Terraform'
