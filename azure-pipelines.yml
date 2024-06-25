@@ -1,5 +1,7 @@
 trigger:
-- main
+  branches:
+    include:
+    - main
 
 pr:
 - main
