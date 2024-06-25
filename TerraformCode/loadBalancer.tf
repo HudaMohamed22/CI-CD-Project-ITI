@@ -44,7 +44,8 @@ resource "aws_lb" "node_alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = [ module.network.M-subnets["public"].id,  module.network.M-subnets["public2"].id]
+ # subnets            = [ module.network.M-subnets["public"].id,  module.network.M-subnets["public2"].id]
+  subnets            = [module.network.M-subnets["public"].id]
 
   tags = {
     Name = "Nodejs Application Load Balancer "
