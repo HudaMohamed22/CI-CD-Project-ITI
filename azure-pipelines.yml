@@ -48,27 +48,31 @@ steps:
         terraform workspace new ${{ parameters.workspace }}
       fi
 
-      # Run Terraform plan for pull requests
+      # Run Terraform plan for pull requests on main
       if [ "$(Build.Reason)" = "PullRequest" ]; then
         terraform plan -var-file=${{ parameters.workspace }}-variables.tfvars
 
+      # Run Terraform apply for merge/push on main 
       elif [ "$(Build.Reason)" = "IndividualCI" ]; then
-        terraform plan -var-file=${{ parameters.workspace }}-variables.tfvars
-         
-        #terraform apply -auto-approve -var-file=$(workspace)-variables.tfvars
+         terraform apply -auto-approve -var-file=${{ parameters.workspace }}-variables.tfvars
 
-      # Run Terraform apply or destroy for manual runs and IndividualCI
-      # elif [ "$(Build.Reason)" = "Manual" ] || [ "$(Build.Reason)" = "IndividualCI" ]; then
-      #   if [ "$(parameters.action)" = "apply" ]; then
-      #     terraform apply -auto-approve -var-file=$(parameters.workspace)-variables.tfvars
-      #   elif [ "$(parameters.action)" = "destroy" ]; then
-      #     terraform destroy -auto-approve -var-file=$(parameters.workspace)-variables.tfvars
-      #   else
-      #     echo "Invalid action selected. Please choose either 'apply' or 'destroy'."
-      #     exit 1
-      #   fi
+       # Run Terraform apply or destroy for manual runs 
+      elif [ "$(Build.Reason)" = "Manual" ] || [ "$(Build.Reason)" = "IndividualCI" ]; then
+
+        if [ "$(parameters.action)" = "apply" ]; then
+          terraform apply -auto-approve -var-file=${{ parameters.workspace }}-variables.tfvars
+    
+        elif [ "$(parameters.action)" = "destroy" ]; then
+          terraform destroy -auto-approve -var-file=${{ parameters.workspace }}-variables.tfvars
+
+        else
+          echo "Invalid action selected. Please choose either 'apply' or 'destroy'."
+          exit 1
+        fi
+        
       fi
   displayName: 'Run Terraform'
+
 
 
 
