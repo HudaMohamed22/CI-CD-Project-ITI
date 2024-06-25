@@ -59,10 +59,10 @@ steps:
        # Run Terraform apply or destroy for manual runs 
       elif [ "$(Build.Reason)" = "Manual" ] || [ "$(Build.Reason)" = "IndividualCI" ]; then
 
-        if [ "$(parameters.action)" = "apply" ]; then
+        if [ "${{ parameters.action }}" = "apply" ]; then
           terraform apply -auto-approve -var-file=${{ parameters.workspace }}-variables.tfvars
     
-        elif [ "$(parameters.action)" = "destroy" ]; then
+        elif [ "${{ parameters.action }}" = "destroy" ]; then
           terraform destroy -auto-approve -var-file=${{ parameters.workspace }}-variables.tfvars
 
         else
