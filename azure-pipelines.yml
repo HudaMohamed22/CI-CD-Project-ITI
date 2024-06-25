@@ -12,8 +12,6 @@ pool:
 steps:
 - script: |
     echo Test => Hello, world!
-    cd TerraformCode
-    ls
   displayName: 'Test script'
 
 
@@ -23,6 +21,8 @@ steps:
     regionName: 'us-east-1'
     scriptType: 'inline'
     inlineScript: |
+      cd TerraformCode
+      ls
       if [ "$(Build.Reason)" = "PullRequest" ]; then
         terraform init
         terraform plan
